@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { SearchBar, MovieCard } from "../../components";
+import { SearchBar, MovieCard, MovieList } from "../../components";
 const moviesInfo = [
   { title: "The Shawshank Redemption", genre: "Drama", year: 1994 },
   { title: "The Godfather", genre: "Crime", year: 1972 },
@@ -46,7 +46,7 @@ const initialSearch = () => {
         onChangeText={handleSearch}
         eraserPress={handleEraserPress}
       />
-      <MovieCard />
+      <MovieList movies={moviesInfo} />
     </View>
   );
 };

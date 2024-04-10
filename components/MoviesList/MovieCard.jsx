@@ -8,19 +8,16 @@ export const MovieCard = ({ movieName, onToggleFavorite, isFavorite }) => {
   };
 
   return (
-    <View style={{ width: "80%", alignSelf: "center" }}>
-      <Card>
-        <Card.Title title={"El mostro de el lago"} />
-        <Card.Actions>
-          <TouchableOpacity onPress={toggleFavorite}>
-            <IconButton
-              icon="star"
-              iconColor="#FBFF81"
-              mode="contained-tonal"
-            />
-          </TouchableOpacity>
-        </Card.Actions>
-      </Card>
-    </View>
+    <Card style={{ margin: 10, padding: 10 }}>
+      <Card.Title title={movieName} />
+      <Card.Actions>
+        <TouchableOpacity onPress={toggleFavorite}>
+          <IconButton
+            icon={isFavorite ? "star" : "star-outline"}
+            color={isFavorite ? "gold" : "gray"}
+          />
+        </TouchableOpacity>
+      </Card.Actions>
+    </Card>
   );
 };
