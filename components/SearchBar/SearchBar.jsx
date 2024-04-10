@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { Searchbar, Button } from "react-native-paper";
 
 export const SearchBar = React.memo(
-  ({ eraserPress, onPress, value, onChangeText }) => {
+  ({ eraserPress, onSubmitEditing, value, onChangeText, onKeyPress }) => {
     return (
       <View
         style={{
@@ -17,8 +17,9 @@ export const SearchBar = React.memo(
           placeholder="Search"
           value={value}
           onChangeText={onChangeText}
-          elevation={1}
+          onKeyPress={onKeyPress}
           iconColor={"pink"}
+          onSubmitEditing={onSubmitEditing}
           clearIcon={() => (
             <Button
               icon="close"

@@ -1,4 +1,6 @@
 // En DataContext.js
+
+// Importar useEffect y useState si no están ya importados
 import React, {
   createContext,
   useState,
@@ -17,22 +19,25 @@ export const MovieProvider = ({ children }) => {
   const [movieData, setMovieData] = useState();
   const [searchData, setSearchData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  console.log("query", searchQuery);
 
   const handleSearch = useCallback((query) => {
     setSearchQuery(query);
+    console.log("query", query); // Verificar el valor de búsqueda
   }, []);
-
   const handleEraserPress = useCallback(() => {
     setSearchQuery("");
   }, []);
 
   const fetchMovieSearch = async () => {
-    try {
-      const results = await searchMovies(idSearch);
-      console.log(JSON.stringify(results, null, 2));
-      setSearchData(results);
-    } catch (error) {
-      console.error("Error fetching search:", error);
+    if (searchQuery.trim() !== "") {
+      try {
+        const results = await searchMovies(searchQuery);
+        console.log(JSON.stringify(results, null, 2));
+        setSearchData(results);
+      } catch (error) {
+        console.error("Error fetching search:", error);
+      }
     }
   };
 
@@ -47,8 +52,8 @@ export const MovieProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchMovieSearch(idSearch);
-  }, []);
+    fetchMovieSearch();
+  }, [searchQuery]);
 
   return (
     <MovieContext.Provider
