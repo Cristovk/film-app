@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
 import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { MovieCard } from "./MovieCard.jsx";
-import { MovieContext } from "../../context/DataContext";
+import { MovieContext } from "../../context/DataContext.js";
 
-export const MovieList = () => {
-  const { searchData, toggleFavorite } = useContext(MovieContext);
+export const FavoriteList = () => {
+  const { favoriteMovies, toggleFavorite } = useContext(MovieContext);
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        {searchData.map((movie) => (
+        {favoriteMovies.map((movie) => (
           <MovieCard
             key={movie.id}
-            title={movie.Title}
-            year={movie.Year}
+            title={movie.title}
+            year={movie.year}
             imdbID={movie.imdbID}
-            type={movie.Type}
-            poster={movie.Poster}
+            type={movie.type}
+            poster={movie.poster}
             toggleFavorite={toggleFavorite}
             isFavorite={movie.isFavorite}
           />

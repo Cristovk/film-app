@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Button } from "react-native";
+import { View } from "react-native";
 import { SearchBar, MovieList } from "../../components";
 import { MovieContext } from "../../context/DataContext";
 

@@ -19,15 +19,28 @@ export const MovieProvider = ({ children }) => {
   const [movieData, setMovieData] = useState();
   const [searchData, setSearchData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   console.log("query", searchQuery);
+  console.log("favorite", favoriteMovies);
 
   const handleSearch = useCallback((query) => {
     setSearchQuery(query);
-    console.log("query", query); // Verificar el valor de búsqueda
+    console.log("query", query);
   }, []);
   const handleEraserPress = useCallback(() => {
     setSearchQuery("");
   }, []);
+
+  const toggleFavorite = (movie) => {
+    console.log("movie", movie);
+    if (favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID)) {
+      setFavoriteMovies(
+        favoriteMovies.filter((favMovie) => favMovie.imdbID !== movie.imdbID)
+      );
+    } else {
+      setFavoriteMovies([...favoriteMovies, movie]);
+    }
+  };
 
   const fetchMovieSearch = async () => {
     if (searchQuery.trim() !== "") {
@@ -65,6 +78,10 @@ export const MovieProvider = ({ children }) => {
         searchQuery,
         handleSearch,
         handleEraserPress,
+        fetchMovieID,
+        favoriteMovies,
+        setFavoriteMovies,
+        toggleFavorite,
       }}
     >
       {children}
