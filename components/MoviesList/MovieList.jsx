@@ -1,27 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { ScrollView } from "react-native";
-import MovieCard from "./MovieCard";
+import { Card, Title, Paragraph } from "react-native-paper";
+import { MovieContext } from "../../context/DataContext";
 
-export const MovieList = ({ movies }) => {
-  const [favorites, setFavorites] = useState([]);
-
-  const toggleFavorite = (movieName) => {
-    if (favorites.includes(movieName)) {
-      setFavorites(favorites.filter((name) => name !== movieName));
-    } else {
-      setFavorites([...favorites, movieName]);
-    }
-  };
+export const MovieList = () => {
+  const { movies, onToggleFavorite } = useContext(MovieContext);
 
   return (
     <ScrollView>
-      {movies.map((movie, index) => (
-        <MovieCard
-          key={index}
-          movieName={movie.title}
-          onToggleFavorite={toggleFavorite}
-          isFavorite={favorites.includes(movie.title)}
-        />
+      {movies.map((movie) => (
+        <Card key={movie.id} onPress={() => onToggleFavorite(movie.id)}>
+          <Card.Cover source={{ uri: movie.posterUrl }} />
+          <Card.Content>
+            <Title>{movie.title}</Title>
+            <Paragraph>{movie.description}</Paragraph>
+          </Card.Content>
+        </Card>
       ))}
     </ScrollView>
   );

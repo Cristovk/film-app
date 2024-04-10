@@ -3,6 +3,9 @@
     "experiments": {
       "typedRoutes": true
     },
+    "extra": {
+      "API_KEY": "10fdf75b"
+    },
 
     "scheme": "acme",
     "web": {
