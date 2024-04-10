@@ -10,9 +10,13 @@ export const MovieCard = ({
   poster,
   isFavorite,
   toggleFavorite,
+  onDetailsPress,
 }) => {
   const handleToggleFavorite = () => {
     toggleFavorite({ title, year, imdbID, type, poster });
+  };
+  const handleDetailsPress = () => {
+    onDetailsPress(imdbID);
   };
   return (
     <Card style={styles.card}>
@@ -35,7 +39,7 @@ export const MovieCard = ({
               color={isFavorite ? "gold" : "gray"}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => onDetailsPress(imdbID)}>
+          <TouchableOpacity onPress={handleDetailsPress}>
             <IconButton icon="chevron-right" color="black" />
           </TouchableOpacity>
         </View>

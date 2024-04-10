@@ -4,7 +4,8 @@ import { MovieCard } from "./MovieCard.jsx";
 import { MovieContext } from "../../context/DataContext.js";
 
 export const FavoriteList = () => {
-  const { favoriteMovies, toggleFavorite } = useContext(MovieContext);
+  const { favoriteMovies, toggleFavorite, handleDetailsPress } =
+    useContext(MovieContext);
 
   return (
     <View style={styles.container}>
@@ -18,14 +19,13 @@ export const FavoriteList = () => {
             type={movie.type}
             poster={movie.poster}
             toggleFavorite={toggleFavorite}
-            isFavorite={movie.isFavorite}
+            onDetailsPress={() => handleDetailsPress(movie.imdbID)} // Pass imdbID to handleDetailsPress
           />
         ))}
       </ScrollView>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     maxWidth: "100%",

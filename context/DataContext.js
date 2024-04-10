@@ -1,6 +1,3 @@
-// En DataContext.js
-
-// Importar useEffect y useState si no están ya importados
 import React, {
   createContext,
   useState,
@@ -8,19 +5,19 @@ import React, {
   useContext,
   useCallback,
 } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage from @react-native-async-storage/async-storage
 import { getMovieById, searchMovies } from "../Utils/Utils";
 
 export const MovieContext = createContext();
-
-let idMovie = "tt0111161";
-let idSearch = "godfather";
 
 export const MovieProvider = ({ children }) => {
   const [movieData, setMovieData] = useState();
   const [searchData, setSearchData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [inDetail, setInDetail] = useState(false);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  console.log("query", searchQuery);
+  const [idMovie, setIdMovie] = useState("");
+  console.log("idMovie", idMovie);
   console.log("favorite", favoriteMovies);
 
   const handleSearch = useCallback((query) => {
@@ -30,17 +27,49 @@ export const MovieProvider = ({ children }) => {
   const handleEraserPress = useCallback(() => {
     setSearchQuery("");
   }, []);
+  const handleDetailsPress = (imdbID) => {
+    setInDetail(true);
+    setIdMovie(imdbID);
+  };
 
-  const toggleFavorite = (movie) => {
-    console.log("movie", movie);
+  const toggleFavorite = async (movie) => {
+    let updatedFavorites = [];
     if (favoriteMovies.some((favMovie) => favMovie.imdbID === movie.imdbID)) {
-      setFavoriteMovies(
-        favoriteMovies.filter((favMovie) => favMovie.imdbID !== movie.imdbID)
+      updatedFavorites = favoriteMovies.filter(
+        (favMovie) => favMovie.imdbID !== movie.imdbID
       );
     } else {
-      setFavoriteMovies([...favoriteMovies, movie]);
+      updatedFavorites = [...favoriteMovies, movie];
+    }
+
+    try {
+      await AsyncStorage.setItem(
+        "favoriteMovies",
+        JSON.stringify(updatedFavorites)
+      );
+      setFavoriteMovies(updatedFavorites);
+    } catch (error) {
+      console.error("Error saving favorite movies to AsyncStorage:", error);
     }
   };
+
+  useEffect(() => {
+    const loadFavorites = async () => {
+      try {
+        const favorites = await AsyncStorage.getItem("favoriteMovies");
+        if (favorites) {
+          setFavoriteMovies(JSON.parse(favorites));
+        }
+      } catch (error) {
+        console.error(
+          "Error loading favorite movies from AsyncStorage:",
+          error
+        );
+      }
+    };
+
+    loadFavorites();
+  }, []);
 
   const fetchMovieSearch = async () => {
     if (searchQuery.trim() !== "") {
@@ -68,6 +97,10 @@ export const MovieProvider = ({ children }) => {
     fetchMovieSearch();
   }, [searchQuery]);
 
+  useEffect(() => {
+    fetchMovieID();
+  }, [inDetail]);
+
   return (
     <MovieContext.Provider
       value={{
@@ -82,6 +115,9 @@ export const MovieProvider = ({ children }) => {
         favoriteMovies,
         setFavoriteMovies,
         toggleFavorite,
+        inDetail,
+        setInDetail,
+        handleDetailsPress,
       }}
     >
       {children}
