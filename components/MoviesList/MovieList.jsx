@@ -4,7 +4,8 @@ import { MovieCard } from "./MovieCard.jsx";
 import { MovieContext } from "../../context/DataContext";
 
 export const MovieList = () => {
-  const { searchData, toggleFavorite } = useContext(MovieContext);
+  const { searchData, toggleFavorite, handleDetailsPress } =
+    useContext(MovieContext);
   const [visibleMovies, setVisibleMovies] = useState(10); // Number of movies to display initially
 
   const loadMoreMovies = () => {
@@ -24,6 +25,7 @@ export const MovieList = () => {
             poster={movie.Poster}
             toggleFavorite={toggleFavorite}
             isFavorite={movie.isFavorite}
+            onDetailsPress={() => handleDetailsPress(movie.imdbID)}
           />
         ))}
       </ScrollView>

@@ -24,6 +24,16 @@ export default () => {
           tabBarIcon: () => <Icon name="favorite" color="##fcabf9" />,
         }}
       />
+      <Tabs.Screen
+        name="detail"
+        options={{
+          title: "detail",
+          headerTitle: "Detail Movie",
+          headerTitleAlign: "center",
+          headerTitleStyle: { color: "pink" },
+          tabBarIcon: () => <Icon name="favorite" color="##fcabf9" />,
+        }}
+      />
     </Tabs>
   );
 };

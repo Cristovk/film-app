@@ -18,11 +18,9 @@ export const MovieProvider = ({ children }) => {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [idMovie, setIdMovie] = useState("");
   console.log("idMovie", idMovie);
-  console.log("favorite", favoriteMovies);
 
   const handleSearch = useCallback((query) => {
     setSearchQuery(query);
-    console.log("query", query);
   }, []);
   const handleEraserPress = useCallback(() => {
     setSearchQuery("");
@@ -86,7 +84,7 @@ export const MovieProvider = ({ children }) => {
   const fetchMovieID = async () => {
     try {
       const results = await getMovieById(idMovie);
-      console.log(results);
+      console.log("ID", JSON.stringify(results, null, 2));
       setMovieData(results);
     } catch (error) {
       console.error("Error fetching movie:", error);
