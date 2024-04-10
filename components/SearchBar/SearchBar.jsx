@@ -3,7 +3,7 @@ import React from "react";
 import { Searchbar, Button } from "react-native-paper";
 
 export const SearchBar = React.memo(
-  ({ display, onPress, value, onChangeText, onPressSearch }) => {
+  ({ eraserPress, onPress, value, onChangeText }) => {
     return (
       <View
         style={{
@@ -19,6 +19,13 @@ export const SearchBar = React.memo(
           onChangeText={onChangeText}
           elevation={1}
           iconColor={"pink"}
+          clearIcon={() => (
+            <Button
+              icon="close"
+              onPress={eraserPress}
+              style={{ marginRight: 10 }}
+            />
+          )}
         />
       </View>
     );

@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { View } from "react-native";
-import React from "react";
-import { SearchBar, MovieList } from "../../components";
+import { SearchBar, MovieCard } from "../../components";
 const moviesInfo = [
   { title: "The Shawshank Redemption", genre: "Drama", year: 1994 },
   { title: "The Godfather", genre: "Crime", year: 1972 },
@@ -27,12 +27,26 @@ const moviesInfo = [
   { title: "The Shawshank Redemption", genre: "Drama", year: 1994 },
 ];
 const initialSearch = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const handleEraserPress = () => {
+    setSearchQuery("");
+  };
+
   return (
     <View
       style={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}
     >
-      <SearchBar />
-      <MovieList movies={moviesInfo} />
+      <SearchBar
+        value={searchQuery}
+        onChangeText={handleSearch}
+        eraserPress={handleEraserPress}
+      />
+      <MovieCard />
     </View>
   );
 };

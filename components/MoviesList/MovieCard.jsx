@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Card, IconButton } from "react-native-paper";
 
 export const MovieCard = ({ movieName, onToggleFavorite, isFavorite }) => {
@@ -9,16 +8,19 @@ export const MovieCard = ({ movieName, onToggleFavorite, isFavorite }) => {
   };
 
   return (
-    <Card style={{ margin: 10, padding: 10 }}>
-      <Card.Title title={movieName} />
-      <Card.Actions>
-        <TouchableOpacity onPress={toggleFavorite}>
-          <IconButton
-            icon={isFavorite ? "star" : "star-outline"}
-            color={isFavorite ? "gold" : "gray"}
-          />
-        </TouchableOpacity>
-      </Card.Actions>
-    </Card>
+    <View style={{ width: "80%", alignSelf: "center" }}>
+      <Card>
+        <Card.Title title={"El mostro de el lago"} />
+        <Card.Actions>
+          <TouchableOpacity onPress={toggleFavorite}>
+            <IconButton
+              icon="star"
+              iconColor="#FBFF81"
+              mode="contained-tonal"
+            />
+          </TouchableOpacity>
+        </Card.Actions>
+      </Card>
+    </View>
   );
 };
