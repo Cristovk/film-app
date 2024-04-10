@@ -8,14 +8,13 @@ const InitialSearch = () => {
     useContext(MovieContext);
 
   return (
-    <View
-      style={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}
-    >
+    <View style={{ flex: 1, justifyContent: "flex-start" }}>
       <SearchBar
         value={searchQuery}
         onChangeText={handleSearch}
         eraserPress={handleEraserPress}
       />
+
       <MovieList />
     </View>
   );

@@ -29,7 +29,7 @@ export const MovieProvider = ({ children }) => {
   const fetchMovieSearch = async () => {
     try {
       const results = await searchMovies(idSearch);
-      console.log(JSON.stringify(results,null, 2));
+      console.log(JSON.stringify(results, null, 2));
       setSearchData(results);
     } catch (error) {
       console.error("Error fetching search:", error);

@@ -26,29 +26,30 @@ export const MovieCard = ({
           <Text variant="titleLarge" style={styles.title}>
             {title}
           </Text>
-          <Text variant="bodyMedium">{year}</Text>
-          <Text variant="bodyMedium">{type}</Text>
+          <Text variant="bodyMedium" style={styles.text}>
+            {year} | {type}
+          </Text>
+        </View>
+        <View style={styles.actions}>
+          <TouchableOpacity onPress={toggleFavorite}>
+            <IconButton
+              icon={isFavorite ? "star" : "star-outline"}
+              color={isFavorite ? "gold" : "gray"}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onDetailsPress(imdbID)}>
+            <IconButton icon="chevron-right" color="black" />
+          </TouchableOpacity>
         </View>
       </View>
-      <Card.Actions style={styles.actions}>
-        <TouchableOpacity onPress={toggleFavorite}>
-          <IconButton
-            icon={isFavorite ? "star" : "star-outline"}
-            color={isFavorite ? "gold" : "gray"}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => onDetailsPress(imdbID)}>
-          <IconButton icon="chevron-right" color="black" />
-        </TouchableOpacity>
-      </Card.Actions>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    margin: 10,
-    padding: 10,
+    margin: 5,
+    padding: 20,
   },
   cardContent: {
     flexDirection: "row",
@@ -57,17 +58,20 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   image: {
-    width: 100,
-    height: 150,
+    width: 60,
+    height: 100,
   },
   textContainer: {
     flex: 1,
     justifyContent: "center",
+    paddingHorizontal: 5,
   },
   title: {
     marginBottom: 5,
   },
   actions: {
-    justifyContent: "space-between",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    paddingHorizontal: 5,
   },
 });
